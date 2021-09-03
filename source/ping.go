@@ -5,23 +5,25 @@ import (
 	"github.com/icraftltd/valve-source-query/packet"
 )
 
-func (c *Client) Ping() (bool, error) {
+func (c *Client) Ping() (*PingResponse, error) {
 	var b packet.Builder
 	b.WriteBytes([]byte{0xFF, 0xFF, 0xFF, 0xFF, 0x69})
 
+	p := &PingResponse{Address: c.addr}
 	if err := c.send(b.Bytes()); err != nil {
-		return false, err
+		return p, err
 	}
 
-	response, err := c.receive()
+	resp, err := c.receive()
 	if err != nil {
-		return false, err
+		return p, err
 	}
 
-	reader := packet.NewReader(response)
+	reader := packet.NewReader(resp)
 	if reader.ReadInt32() != -1 {
-		return false, errors.New("source.Client.Ping: packet header mismatch")
+		return p, errors.New("source.Client.Ping: packet header mismatch")
 	}
 
-	return reader.ReadUint8() == 0x6A, nil
+	p.Status = reader.ReadUint8() == 0x6A
+	return p, nil
 }

@@ -76,3 +76,8 @@ func GetServerTypeString(st uint8) string {
 
 	return "Unknown"
 }
+
+type PingResponse struct {
+	Address string `json:"address"`
+	Status  bool   `json:"status"`
+}
