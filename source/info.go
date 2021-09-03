@@ -56,7 +56,7 @@ func ResolveSourceResponse(r *packet.Reader) *Server {
 		Bots:         r.ReadUint8(),
 		Type:         GetServerTypeString(r.ReadUint8()),
 		System:       GetServerSystemString(r.ReadUint8()),
-		Visibility:   r.ReadUint8() == 1,
+		Visibility:   r.ReadUint8() == 0,
 		VAC:          r.ReadUint8() == 1,
 	}
 
