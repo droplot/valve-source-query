@@ -6,19 +6,16 @@ type TheShip struct {
 	Witnesses uint8 `json:"Witnesses"`
 	Duration  uint8 `json:"Duration"`
 }
-
 type ServerExtend struct {
 	Port     uint16 `json:"Port"`
 	SteamID  uint64 `json:"SteamID"`
 	Keywords string `json:"Keywords"`
 	GameID   uint64 `json:"GameID"`
 }
-
 type TV struct {
 	Port uint16 `json:"Port"`
 	Name string `json:"Name"`
 }
-
 type Mod struct {
 	Link         string `json:"Link"`
 	DownloadLink string `json:"DownloadLink"`
@@ -27,7 +24,6 @@ type Mod struct {
 	Type         uint8  `json:"Type"`
 	DLL          uint8  `json:"DLL"`
 }
-
 type Server struct {
 	Proto        uint8         `json:"Protocol"`
 	Name         string        `json:"Name"`
@@ -49,6 +45,33 @@ type Server struct {
 	EDF          uint8         `json:"EDF,omitempty"`
 	Mod          *Mod          `json:"Mod,omitempty"`
 	Address      string        `json:"Address"`
+}
+type PingResponse struct {
+	Address string `json:"Address"`
+	Status  bool   `json:"Status"`
+}
+type Player struct {
+	Index    uint8       `json:"Index"`
+	Name     string      `json:"Name"`
+	Score    uint32      `json:"Score"`
+	Duration float32     `json:"Duration"`
+	Ship     *ShipPlayer `json:"Ship,omitempty"`
+}
+type ShipPlayer struct {
+	Deaths uint32 `json:"Deaths"`
+	Money  uint32 `json:"Money"`
+}
+type Players struct {
+	Count uint8     `json:"Count"`
+	Items []*Player `json:"Items"`
+}
+type Rule struct {
+	Key   string `json:"Key"`
+	Value string `json:"Value"`
+}
+type Rules struct {
+	Count uint16            `json:"Count"`
+	Items map[string]string `json:"Items"`
 }
 
 func GetServerSystemString(os uint8) string {
@@ -75,9 +98,4 @@ func GetServerTypeString(st uint8) string {
 	}
 
 	return "Unknown"
-}
-
-type PingResponse struct {
-	Address string `json:"address"`
-	Status  bool   `json:"status"`
 }
