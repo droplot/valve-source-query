@@ -3,7 +3,7 @@ package source
 import (
 	"errors"
 	"fmt"
-	"icraft/valve/packet"
+	"github.com/icraftltd/valve-source-query/packet"
 )
 
 // Info :get server info.

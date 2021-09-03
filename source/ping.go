@@ -2,7 +2,7 @@ package source
 
 import (
 	"errors"
-	"icraft/valve/packet"
+	"github.com/icraftltd/valve-source-query/packet"
 )
 
 func (c *Client) Ping() (bool, error) {
